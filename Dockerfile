@@ -15,8 +15,8 @@ FROM openjdk:21-jdk AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/target/identity-service-0.0.1-SNAPSHOT.jar ./app.jar
+COPY --from=builder /app/target/transactions-service-0.0.1-SNAPSHOT.jar ./app.jar
 
-EXPOSE 8001
+EXPOSE 8003
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
