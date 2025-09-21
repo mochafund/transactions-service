@@ -39,6 +39,10 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+    topics:
+      - user.updated
+      - user.deleted
+      - workspace.deleted
 
   security:
     oauth2:
