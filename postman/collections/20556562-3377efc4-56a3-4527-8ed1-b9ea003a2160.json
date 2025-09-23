@@ -37,6 +37,11 @@
 		"type": "oauth2",
 		"oauth2": [
 			{
+				"key": "tokenName",
+				"value": "transactions-service-token",
+				"type": "string"
+			},
+			{
 				"key": "authRequestParams",
 				"value": [
 					{
@@ -85,11 +90,6 @@
 				"type": "string"
 			},
 			{
-				"key": "tokenName",
-				"value": "oauth2-token",
-				"type": "string"
-			},
-			{
 				"key": "refreshRequestParams",
 				"value": [],
 				"type": "any"
@@ -125,9 +125,10 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "0596dc1e-5c5c-4d73-83e8-cb179966fbfb",
+				"id": "0bde9899-e256-47de-8dc5-3c430a9d3a2a",
 				"type": "text/javascript",
 				"packages": {},
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -136,9 +137,10 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "0587ca22-c79d-4ffa-a031-26e1a82e440e",
+				"id": "555c09f9-aeb9-4f1d-b317-ef631b424853",
 				"type": "text/javascript",
 				"packages": {},
+				"requests": {},
 				"exec": [
 					""
 				]
