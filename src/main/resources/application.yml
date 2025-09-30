@@ -41,12 +41,16 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     topics:
       - workspace.created
+      - workspace.updated
       - workspace.deleted
       - category.created
+      - category.updated
       - category.deleted
       - account.created
+      - account.updated
       - account.deleted
       - tag.created
+      - tag.updated
       - tag.deleted
 
   security:
