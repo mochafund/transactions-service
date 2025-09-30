@@ -1,10 +1,12 @@
 CREATE TABLE workspaces (
-    id UUID PRIMARY KEY
+    id UUID PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE workspace_accounts (
     workspace_id UUID NOT NULL,
     account_id UUID NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (workspace_id, account_id),
     CONSTRAINT fk_workspace_accounts_workspace
         FOREIGN KEY (workspace_id)
@@ -15,6 +17,7 @@ CREATE TABLE workspace_accounts (
 CREATE TABLE workspace_categories (
     workspace_id UUID NOT NULL,
     category_id UUID NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (workspace_id, category_id),
     CONSTRAINT fk_workspace_categories_workspace
         FOREIGN KEY (workspace_id)
@@ -25,6 +28,7 @@ CREATE TABLE workspace_categories (
 CREATE TABLE workspace_tags (
     workspace_id UUID NOT NULL,
     tag_id UUID NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (workspace_id, tag_id),
     CONSTRAINT fk_workspace_tags_workspace
         FOREIGN KEY (workspace_id)
