@@ -1,6 +1,7 @@
 package com.mochafund.transactionsservice.transaction.dto;
 
 import com.mochafund.transactionsservice.transaction.entity.Transaction;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CreateTransactionDto {
 
+    @NotNull(message = "Account ID must be provided")
     private UUID accountId;
     private UUID categoryId;
-    private LocalDateTime date;
-    private BigDecimal amount;
+    private LocalDateTime date = LocalDateTime.now();
+    private BigDecimal amount = BigDecimal.ZERO;
 
     public static Transaction fromDto(CreateTransactionDto transactionDto) {
         return Transaction.builder()

@@ -33,6 +33,9 @@ public class TransactionDto extends BaseDto {
 
     public static TransactionDto fromEntity(Transaction transaction) {
         return TransactionDto.builder()
+                .id(transaction.getId())
+                .createdAt(transaction.getCreatedAt())
+                .updatedAt(transaction.getUpdatedAt())
                 .workspaceId(transaction.getWorkspaceId())
                 .accountId(transaction.getAccountId())
                 .categoryId(transaction.getCategoryId())
