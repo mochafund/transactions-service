@@ -58,14 +58,23 @@
 					"response": []
 				},
 				{
-					"name": "/transactions/:id Copy",
+					"name": "/transactions/:id",
 					"id": "20556562-e59ee1ea-e9f2-4f67-a99d-a3887b897ae2",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
+						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{transactions-service}}/transactions/:id",
 							"host": [
@@ -77,7 +86,6 @@
 							],
 							"variable": [
 								{
-									"id": "b28be7f2-126e-4c05-89ab-876ac0cdd8ab",
 									"key": "id",
 									"value": ""
 								}
