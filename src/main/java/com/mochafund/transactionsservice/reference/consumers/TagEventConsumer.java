@@ -1,11 +1,12 @@
-package com.mochafund.transactionsservice.consumers;
+package com.mochafund.transactionsservice.reference.consumers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mochafund.transactionsservice.common.events.EventEnvelope;
 import com.mochafund.transactionsservice.common.events.EventType;
-import com.mochafund.transactionsservice.common.events.payloads.TagEventPayload;
+import com.mochafund.transactionsservice.reference.consumers.payloads.TagEventPayload;
 import com.mochafund.transactionsservice.common.util.CorrelationIdUtil;
+import com.mochafund.transactionsservice.reference.service.WorkspaceMetadataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,8 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TagEventConsumer {
 
-    private final String GROUP_ID = "transactions-service";
+    private static final String GROUP_ID = "transactions-service";
     private final ObjectMapper objectMapper;
+    private final WorkspaceMetadataService metadataService;
 
     @KafkaListener(topics = EventType.TAG_CREATED, groupId = GROUP_ID)
     public void handleTagCreated(String message) {
@@ -25,6 +27,17 @@ public class TagEventConsumer {
         CorrelationIdUtil.executeWithCorrelationId(event, () -> {
             TagEventPayload payload = event.getPayload();
             log.info("Processing tag.created - Tag: {}", payload.getId());
+            metadataService.upsertTag(payload);
+        });
+    }
+
+    @KafkaListener(topics = EventType.TAG_UPDATED, groupId = GROUP_ID)
+    public void handleTagUpdated(String message) {
+        EventEnvelope<TagEventPayload> event = readEnvelope(message, TagEventPayload.class);
+        CorrelationIdUtil.executeWithCorrelationId(event, () -> {
+            TagEventPayload payload = event.getPayload();
+            log.info("Processing tag.updated - Tag: {}", payload.getId());
+            metadataService.upsertTag(payload);
         });
     }
 
@@ -34,6 +47,7 @@ public class TagEventConsumer {
         CorrelationIdUtil.executeWithCorrelationId(event, () -> {
             TagEventPayload payload = event.getPayload();
             log.info("Processing tag.deleted - Tag: {}", payload.getId());
+            metadataService.removeTag(payload);
         });
     }
 

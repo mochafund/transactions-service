@@ -12,7 +12,9 @@
 - `transaction_splits` table (child rows):
   - `id`, `transaction_id`, `category_id`, `amount`, optional `memo`/`tag` relationships.
   - Tag linkage via join table (`transaction_split_tags`) to support multiple tags per split.
-- Enforce referential integrity on `workspace_id` and account/category/tag UUIDs (validate via workspace-service before persisting).
+- Projection tables sourced from workspace-service events:
+  - `workspaces`, `workspace_accounts`, `workspace_categories`, `workspace_tags` (all keyed by `(workspace_id, entity_id)` with `ON DELETE CASCADE`).
+- Enforce referential integrity on `workspace_id` and account/category/tag UUIDs using the local projections before persisting.
 
 ## Event-driven integration
 - Consume `workspace.deleted` (and potentially `account/category/tag` deletion) events to cascade delete or archive related transactions.

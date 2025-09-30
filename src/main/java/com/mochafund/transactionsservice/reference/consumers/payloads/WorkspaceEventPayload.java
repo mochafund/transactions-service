@@ -1,4 +1,4 @@
-package com.mochafund.transactionsservice.common.events.payloads;
+package com.mochafund.transactionsservice.reference.consumers.payloads;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,9 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CategoryEventPayload {
-    private UUID id;
+public class WorkspaceEventPayload {
     private UUID workspaceId;
     private String name;
-    private UUID parentId;
+    private String status;
 }

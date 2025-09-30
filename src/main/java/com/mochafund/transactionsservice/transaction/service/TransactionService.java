@@ -4,6 +4,7 @@ import com.mochafund.transactionsservice.common.events.EventEnvelope;
 import com.mochafund.transactionsservice.common.events.EventType;
 import com.mochafund.transactionsservice.common.exception.ResourceNotFoundException;
 import com.mochafund.transactionsservice.kafka.KafkaProducer;
+import com.mochafund.transactionsservice.reference.service.WorkspaceMetadataService;
 import com.mochafund.transactionsservice.transaction.dto.CreateTransactionDto;
 import com.mochafund.transactionsservice.transaction.dto.UpdateTransactionDto;
 import com.mochafund.transactionsservice.transaction.entity.Transaction;
@@ -24,6 +25,7 @@ public class TransactionService implements ITransactionService {
 
     private final ITransactionRepository transactionRepository;
     private final KafkaProducer kafkaProducer;
+    private final WorkspaceMetadataService metadataService;
 
     @Transactional(readOnly = true)
     public List<Transaction> listAllByWorkspaceId(UUID workspaceId) {
@@ -38,6 +40,10 @@ public class TransactionService implements ITransactionService {
 
     @Transactional
     public Transaction createTransaction(UUID userId, UUID workspaceId, CreateTransactionDto transactionDto) {
+        metadataService.assertWorkspaceExists(workspaceId);
+        metadataService.assertAccountBelongsToWorkspace(workspaceId, transactionDto.getAccountId());
+        metadataService.assertCategoryBelongsToWorkspace(workspaceId, transactionDto.getCategoryId());
+
         Transaction transaction = CreateTransactionDto.fromDto(transactionDto);
         transaction.setWorkspaceId(workspaceId);
         transaction.setCreatedBy(userId);
@@ -45,7 +51,7 @@ public class TransactionService implements ITransactionService {
         transaction = transactionRepository.save(transaction);
 
         kafkaProducer.send(EventEnvelope.<TransactionEventPayload>builder()
-                .type(EventType.TAG_CREATED)
+                .type(EventType.TRANSACTION_CREATED)
                 .payload(TransactionEventPayload.builder()
                         .id(transaction.getId())
                         .workspaceId(workspaceId)
@@ -66,11 +72,17 @@ public class TransactionService implements ITransactionService {
         log.info("Updating transactionId={}", transactionId);
 
         Transaction transaction = this.getTransaction(workspaceId, transactionId);
+        if (transactionDto.getAccountId() != null) {
+            metadataService.assertAccountBelongsToWorkspace(workspaceId, transactionDto.getAccountId());
+        }
+        if (transactionDto.getCategoryId() != null) {
+            metadataService.assertCategoryBelongsToWorkspace(workspaceId, transactionDto.getCategoryId());
+        }
         transaction.patchFrom(transactionDto);
         transaction = transactionRepository.save(transaction);
 
         kafkaProducer.send(EventEnvelope.<TransactionEventPayload>builder()
-                .type(EventType.TAG_UPDATED)
+                .type(EventType.TRANSACTION_UPDATED)
                 .payload(TransactionEventPayload.builder()
                         .id(transaction.getId())
                         .workspaceId(workspaceId)
@@ -94,7 +106,7 @@ public class TransactionService implements ITransactionService {
         transactionRepository.deleteByWorkspaceIdAndId(transaction.getWorkspaceId(), transaction.getId());
 
         kafkaProducer.send(EventEnvelope.<TransactionEventPayload>builder()
-                .type(EventType.TAG_DELETED)
+                .type(EventType.TRANSACTION_DELETED)
                 .payload(TransactionEventPayload.builder()
                         .id(transaction.getId())
                         .workspaceId(workspaceId)

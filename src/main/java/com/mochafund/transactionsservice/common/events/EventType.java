@@ -4,11 +4,9 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class EventType {
-    public static final String WORKSPACE_PROVISIONING = "workspace.provisioning";
     public static final String WORKSPACE_CREATED = "workspace.created";
     public static final String WORKSPACE_UPDATED = "workspace.updated";
     public static final String WORKSPACE_DELETED = "workspace.deleted";
-    public static final String WORKSPACE_DELETED_INITIALIZED = "workspace.deleted.initialized";
 
     public static final String TAG_CREATED = "tag.created";
     public static final String TAG_UPDATED = "tag.updated";
@@ -21,4 +19,8 @@ public class EventType {
     public static final String CATEGORY_CREATED = "category.created";
     public static final String CATEGORY_UPDATED = "category.updated";
     public static final String CATEGORY_DELETED = "category.deleted";
+
+    public static final String TRANSACTION_CREATED = "transaction.created";
+    public static final String TRANSACTION_UPDATED = "transaction.updated";
+    public static final String TRANSACTION_DELETED = "transaction.deleted";
 }

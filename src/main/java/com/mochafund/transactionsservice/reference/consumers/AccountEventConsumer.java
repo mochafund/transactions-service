@@ -1,11 +1,12 @@
-package com.mochafund.transactionsservice.consumers;
+package com.mochafund.transactionsservice.reference.consumers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mochafund.transactionsservice.common.events.EventEnvelope;
 import com.mochafund.transactionsservice.common.events.EventType;
-import com.mochafund.transactionsservice.common.events.payloads.AccountEventPayload;
+import com.mochafund.transactionsservice.reference.consumers.payloads.AccountEventPayload;
 import com.mochafund.transactionsservice.common.util.CorrelationIdUtil;
+import com.mochafund.transactionsservice.reference.service.WorkspaceMetadataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,8 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountEventConsumer {
 
-    private final String GROUP_ID = "transactions-service";
+    private static final String GROUP_ID = "transactions-service";
     private final ObjectMapper objectMapper;
+    private final WorkspaceMetadataService metadataService;
 
     @KafkaListener(topics = EventType.ACCOUNT_CREATED, groupId = GROUP_ID)
     public void handleAccountCreated(String message) {
@@ -25,6 +27,17 @@ public class AccountEventConsumer {
         CorrelationIdUtil.executeWithCorrelationId(event, () -> {
             AccountEventPayload payload = event.getPayload();
             log.info("Processing account.created - Account: {}", payload.getId());
+            metadataService.upsertAccount(payload);
+        });
+    }
+
+    @KafkaListener(topics = EventType.ACCOUNT_UPDATED, groupId = GROUP_ID)
+    public void handleAccountUpdated(String message) {
+        EventEnvelope<AccountEventPayload> event = readEnvelope(message, AccountEventPayload.class);
+        CorrelationIdUtil.executeWithCorrelationId(event, () -> {
+            AccountEventPayload payload = event.getPayload();
+            log.info("Processing account.updated - Account: {}", payload.getId());
+            metadataService.upsertAccount(payload);
         });
     }
 
@@ -34,6 +47,7 @@ public class AccountEventConsumer {
         CorrelationIdUtil.executeWithCorrelationId(event, () -> {
             AccountEventPayload payload = event.getPayload();
             log.info("Processing account.deleted - Account: {}", payload.getId());
+            metadataService.removeAccount(payload);
         });
     }
 
