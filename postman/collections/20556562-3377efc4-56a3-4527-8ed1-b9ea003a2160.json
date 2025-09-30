@@ -30,7 +30,7 @@
 					"response": []
 				},
 				{
-					"name": "/transactions Copy",
+					"name": "/transactions",
 					"id": "20556562-537bc3b1-041b-48a4-910e-750cc71f50f6",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
