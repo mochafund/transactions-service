@@ -95,6 +95,43 @@
 					"response": []
 				},
 				{
+					"name": "/transactions/:id",
+					"id": "20556562-a3c78023-8213-4238-bb83-b951265065f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{transactions-service}}/transactions/:id",
+							"host": [
+								"{{transactions-service}}"
+							],
+							"path": [
+								"transactions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/transactions",
 					"id": "20556562-537bc3b1-041b-48a4-910e-750cc71f50f6",
 					"protocolProfileBehavior": {
