@@ -28,6 +28,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/transactions Copy",
+					"id": "20556562-537bc3b1-041b-48a4-910e-750cc71f50f6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{transactions-service}}/whoami",
+							"host": [
+								"{{transactions-service}}"
+							],
+							"path": [
+								"whoami"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "20556562-a1e996c4-2c7f-4cca-92bb-6054bdc75edd"
