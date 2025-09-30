@@ -30,6 +30,27 @@
 					"response": []
 				},
 				{
+					"name": "/transactions/:id",
+					"id": "20556562-431fc14b-f025-438d-a8c8-2dabbe813e6f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{transactions-service}}/whoami",
+							"host": [
+								"{{transactions-service}}"
+							],
+							"path": [
+								"whoami"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/transactions",
 					"id": "20556562-537bc3b1-041b-48a4-910e-750cc71f50f6",
 					"protocolProfileBehavior": {
