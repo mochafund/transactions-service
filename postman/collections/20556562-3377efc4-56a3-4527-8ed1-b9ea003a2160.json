@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "auth",
+			"name": "transactions",
 			"item": [
 				{
 					"name": "/whoami",
