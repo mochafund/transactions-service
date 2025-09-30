@@ -9,7 +9,7 @@
 			"name": "transactions",
 			"item": [
 				{
-					"name": "/whoami",
+					"name": "/transactions",
 					"id": "20556562-4c4dc353-9809-46f4-8584-99eed704cf66",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
