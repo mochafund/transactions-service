@@ -1,5 +1,6 @@
 package com.mochafund.transactionsservice.transaction.events;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mochafund.transactionsservice.transaction.enums.TransactionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class TransactionEventPayload {
     private UUID workspaceId;
     private UUID accountId;
     private UUID categoryId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDateTime date;
     private BigDecimal amount;
     private TransactionStatus status;
