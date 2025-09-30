@@ -39,12 +39,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{transactions-service}}/whoami",
+							"raw": "{{transactions-service}}/transactions/:id",
 							"host": [
 								"{{transactions-service}}"
 							],
 							"path": [
-								"whoami"
+								"transactions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
