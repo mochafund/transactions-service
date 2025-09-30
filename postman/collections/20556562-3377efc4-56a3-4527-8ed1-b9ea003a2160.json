@@ -36,15 +36,15 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{transactions-service}}/whoami",
+							"raw": "{{transactions-service}}/transactions",
 							"host": [
 								"{{transactions-service}}"
 							],
 							"path": [
-								"whoami"
+								"transactions"
 							]
 						}
 					},
