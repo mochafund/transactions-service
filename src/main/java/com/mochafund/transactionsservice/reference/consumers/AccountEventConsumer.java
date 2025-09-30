@@ -31,16 +31,6 @@ public class AccountEventConsumer {
         });
     }
 
-    @KafkaListener(topics = EventType.ACCOUNT_UPDATED, groupId = GROUP_ID)
-    public void handleAccountUpdated(String message) {
-        EventEnvelope<AccountEventPayload> event = readEnvelope(message, AccountEventPayload.class);
-        CorrelationIdUtil.executeWithCorrelationId(event, () -> {
-            AccountEventPayload payload = event.getPayload();
-            log.info("Processing account.updated - Account: {}", payload.getId());
-            metadataService.upsertAccount(payload);
-        });
-    }
-
     @KafkaListener(topics = EventType.ACCOUNT_DELETED, groupId = GROUP_ID)
     public void handleAccountDeleted(String message) {
         EventEnvelope<AccountEventPayload> event = readEnvelope(message, AccountEventPayload.class);

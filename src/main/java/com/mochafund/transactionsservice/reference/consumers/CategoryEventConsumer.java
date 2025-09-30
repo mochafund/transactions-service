@@ -31,16 +31,6 @@ public class CategoryEventConsumer {
         });
     }
 
-    @KafkaListener(topics = EventType.CATEGORY_UPDATED, groupId = GROUP_ID)
-    public void handleCategoryUpdated(String message) {
-        EventEnvelope<CategoryEventPayload> event = readEnvelope(message, CategoryEventPayload.class);
-        CorrelationIdUtil.executeWithCorrelationId(event, () -> {
-            CategoryEventPayload payload = event.getPayload();
-            log.info("Processing category.updated - Category: {}", payload.getId());
-            metadataService.upsertCategory(payload);
-        });
-    }
-
     @KafkaListener(topics = EventType.CATEGORY_DELETED, groupId = GROUP_ID)
     public void handleCategoryDeleted(String message) {
         EventEnvelope<CategoryEventPayload> event = readEnvelope(message, CategoryEventPayload.class);

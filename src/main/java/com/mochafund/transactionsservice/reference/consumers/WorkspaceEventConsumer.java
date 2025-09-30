@@ -31,16 +31,6 @@ public class WorkspaceEventConsumer {
         });
     }
 
-    @KafkaListener(topics = EventType.WORKSPACE_UPDATED, groupId = GROUP_ID)
-    public void handleWorkspaceUpdated(String message) {
-        EventEnvelope<WorkspaceEventPayload> event = readEnvelope(message, WorkspaceEventPayload.class);
-        CorrelationIdUtil.executeWithCorrelationId(event, () -> {
-            WorkspaceEventPayload payload = event.getPayload();
-            log.info("Processing workspace.updated - Workspace: {}", payload.getWorkspaceId());
-            metadataService.upsertWorkspace(payload);
-        });
-    }
-
     @KafkaListener(topics = EventType.WORKSPACE_DELETED, groupId = GROUP_ID)
     public void handleWorkspaceDeleted(String message) {
         EventEnvelope<WorkspaceEventPayload> event = readEnvelope(message, WorkspaceEventPayload.class);

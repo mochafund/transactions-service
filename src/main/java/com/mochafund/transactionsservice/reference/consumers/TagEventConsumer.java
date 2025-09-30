@@ -31,16 +31,6 @@ public class TagEventConsumer {
         });
     }
 
-    @KafkaListener(topics = EventType.TAG_UPDATED, groupId = GROUP_ID)
-    public void handleTagUpdated(String message) {
-        EventEnvelope<TagEventPayload> event = readEnvelope(message, TagEventPayload.class);
-        CorrelationIdUtil.executeWithCorrelationId(event, () -> {
-            TagEventPayload payload = event.getPayload();
-            log.info("Processing tag.updated - Tag: {}", payload.getId());
-            metadataService.upsertTag(payload);
-        });
-    }
-
     @KafkaListener(topics = EventType.TAG_DELETED, groupId = GROUP_ID)
     public void handleTagDeleted(String message) {
         EventEnvelope<TagEventPayload> event = readEnvelope(message, TagEventPayload.class);
