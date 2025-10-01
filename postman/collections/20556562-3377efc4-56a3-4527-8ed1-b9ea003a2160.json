@@ -18,12 +18,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{transactions-service}}/whoami",
+							"raw": "{{transactions-service}}/transactions",
 							"host": [
 								"{{transactions-service}}"
 							],
 							"path": [
-								"whoami"
+								"transactions"
 							]
 						}
 					},
@@ -38,6 +38,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\": \"07022173-8008-41ca-853c-02244ee401b4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{transactions-service}}/transactions",
 							"host": [
@@ -89,7 +98,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"categoryId\": \"2c5d035f-791d-4551-9cf3-d16845818847\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -108,7 +117,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "0e07b1c3-0146-47ab-b205-4f642c7032d5"
 								}
 							]
 						}
@@ -145,7 +154,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "5d1a4931-7279-4f6c-9ac7-8a24cbf3a890"
 								}
 							]
 						}
