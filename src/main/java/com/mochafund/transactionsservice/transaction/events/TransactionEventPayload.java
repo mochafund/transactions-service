@@ -23,6 +23,7 @@ public class TransactionEventPayload {
     private UUID id;
     private UUID workspaceId;
     private UUID accountId;
+    private UUID merchantId;
     private UUID categoryId;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDateTime date;

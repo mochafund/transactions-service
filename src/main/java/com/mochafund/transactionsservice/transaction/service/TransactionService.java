@@ -42,6 +42,7 @@ public class TransactionService implements ITransactionService {
     public Transaction createTransaction(UUID userId, UUID workspaceId, CreateTransactionDto transactionDto) {
         metadataService.assertWorkspaceExists(workspaceId);
         metadataService.assertAccountBelongsToWorkspace(workspaceId, transactionDto.getAccountId());
+        metadataService.assertMerchantBelongsToWorkspace(workspaceId, transactionDto.getMerchantId());
         metadataService.assertCategoryBelongsToWorkspace(workspaceId, transactionDto.getCategoryId());
 
         Transaction transaction = CreateTransactionDto.fromDto(transactionDto);
@@ -56,6 +57,7 @@ public class TransactionService implements ITransactionService {
                         .id(transaction.getId())
                         .workspaceId(workspaceId)
                         .accountId(transaction.getAccountId())
+                        .merchantId(transaction.getMerchantId())
                         .categoryId(transaction.getCategoryId())
                         .date(transaction.getDate())
                         .amount(transaction.getAmount())
@@ -75,6 +77,9 @@ public class TransactionService implements ITransactionService {
         if (transactionDto.getAccountId() != null) {
             metadataService.assertAccountBelongsToWorkspace(workspaceId, transactionDto.getAccountId());
         }
+        if (transactionDto.getMerchantId() != null) {
+            metadataService.assertMerchantBelongsToWorkspace(workspaceId, transactionDto.getMerchantId());
+        }
         if (transactionDto.getCategoryId() != null) {
             metadataService.assertCategoryBelongsToWorkspace(workspaceId, transactionDto.getCategoryId());
         }
@@ -87,6 +92,7 @@ public class TransactionService implements ITransactionService {
                         .id(transaction.getId())
                         .workspaceId(workspaceId)
                         .accountId(transaction.getAccountId())
+                        .merchantId(transaction.getMerchantId())
                         .categoryId(transaction.getCategoryId())
                         .date(transaction.getDate())
                         .amount(transaction.getAmount())
@@ -111,6 +117,7 @@ public class TransactionService implements ITransactionService {
                         .id(transaction.getId())
                         .workspaceId(workspaceId)
                         .accountId(transaction.getAccountId())
+                        .merchantId(transaction.getMerchantId())
                         .categoryId(transaction.getCategoryId())
                         .date(transaction.getDate())
                         .amount(transaction.getAmount())

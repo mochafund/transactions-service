@@ -23,4 +23,8 @@ public class EventType {
     public static final String TRANSACTION_CREATED = "transaction.created";
     public static final String TRANSACTION_UPDATED = "transaction.updated";
     public static final String TRANSACTION_DELETED = "transaction.deleted";
+
+    public static final String MERCHANT_CREATED = "merchant.created";
+    public static final String MERCHANT_UPDATED = "merchant.updated";
+    public static final String MERCHANT_DELETED = "merchant.deleted";
 }

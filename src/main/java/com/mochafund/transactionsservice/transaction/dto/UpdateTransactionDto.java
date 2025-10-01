@@ -17,6 +17,7 @@ import java.util.UUID;
 public class UpdateTransactionDto {
 
     private UUID accountId;
+    private UUID merchantId;
     private UUID categoryId;
     private LocalDateTime date;
     private BigDecimal amount;

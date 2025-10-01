@@ -25,6 +25,7 @@ public class TransactionDto extends BaseDto {
 
     private UUID workspaceId;
     private UUID accountId;
+    private UUID merchantId;
     private UUID categoryId;
     private UUID createdBy;
     private LocalDateTime date;
@@ -38,6 +39,7 @@ public class TransactionDto extends BaseDto {
                 .updatedAt(transaction.getUpdatedAt())
                 .workspaceId(transaction.getWorkspaceId())
                 .accountId(transaction.getAccountId())
+                .merchantId(transaction.getMerchantId())
                 .categoryId(transaction.getCategoryId())
                 .createdBy(transaction.getCreatedBy())
                 .date(transaction.getDate())

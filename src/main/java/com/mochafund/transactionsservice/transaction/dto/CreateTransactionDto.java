@@ -19,6 +19,8 @@ public class CreateTransactionDto {
 
     @NotNull(message = "Account ID must be provided")
     private UUID accountId;
+    @NotNull(message = "Merchant ID must be provided")
+    private UUID merchantId;
     private UUID categoryId;
     private LocalDateTime date = LocalDateTime.now();
     private BigDecimal amount = BigDecimal.ZERO;
@@ -26,6 +28,7 @@ public class CreateTransactionDto {
     public static Transaction fromDto(CreateTransactionDto transactionDto) {
         return Transaction.builder()
                 .accountId(transactionDto.getAccountId())
+                .merchantId(transactionDto.getMerchantId())
                 .categoryId(transactionDto.getCategoryId())
                 .date(transactionDto.getDate())
                 .amount(transactionDto.getAmount())

@@ -44,6 +44,10 @@ public class Transaction extends BaseEntity implements Patchable {
     private UUID accountId;
 
     @PatchableField
+    @Column(name = "merchant_id", nullable = false)
+    private UUID merchantId;
+
+    @PatchableField
     @Column(name = "category_id")
     private UUID categoryId;
 

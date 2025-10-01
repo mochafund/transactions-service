@@ -36,6 +36,17 @@ CREATE TABLE workspace_tags (
         ON DELETE CASCADE
 );
 
+CREATE TABLE workspace_merchants (
+    workspace_id UUID NOT NULL,
+    merchant_id UUID NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (workspace_id, merchant_id),
+    CONSTRAINT fk_workspace_merchants_workspace
+        FOREIGN KEY (workspace_id)
+            REFERENCES workspaces(id)
+            ON DELETE CASCADE
+);
+
 INSERT INTO workspaces (id)
 SELECT DISTINCT workspace_id
 FROM transactions;
